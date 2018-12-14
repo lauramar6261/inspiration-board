@@ -81,9 +81,15 @@ class Board extends Component {
   render() {
     console.log(this.state.cards)
 
-  const cards = CARD_DATA.cards.map((card) => {
+  const cards = this.state.cards.map((card) => {
+    let emoji = ""
+      if (card.emoji == null) {
+        emoji = undefined
+      } else {
+        emoji = card.emoji
+      }
       return (
-        <Card text = {card.text} emoji= {card.emoji}/>
+        <Card text = {card.text} emoji= {emoji}/>
       )
     });
     return (
