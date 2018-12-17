@@ -44,30 +44,23 @@ class Board extends Component {
 
   }
 
-  addPet = (newPet) => {
+  addCard = (newCard) => {
     const apiPayload = {
-      ...newPet,
-      img: newPet.image,
-      breed: newPet.species,
-      owner: '',
+      ...newCard,
     };
     axios.post(URL, apiPayload)
       .then( (response) => {
-        const myNewPet = response.data;
-        newPet.images = [newPet.image];
-        newPet.id = myNewPet.id
+        console.log(response)
+        const myNewCard = response.data;
+        newCard.id = myNewCard.id
 
-        const {petList, masterList} = this.state;
+        const {cards} = this.state;
 
-        masterList.push(newPet);
-
-        if (petList !== masterList)
-          petList.push(newPet);
+        cards.push(newCard);
 
         this.setState({
-          petList,
-          masterList,
-          errorMessage: 'Pet Added',
+          cards,
+          errorMessage: 'Card Added',
         });
 
       })
@@ -79,7 +72,6 @@ class Board extends Component {
   }
 
   removeCard = (cardId) => {
-    //https://inspiration-board.herokuapp.com/cards/:card_id
     let URL_delete = "https://inspiration-board.herokuapp.com/cards/" + cardId
     axios.delete(URL_delete)
        .then((response) => { //if it finishes successfully, this executes
@@ -124,6 +116,9 @@ class Board extends Component {
     return (
       <div>
         {cards}
+        <section>
+        <NewCardForm addCardCallback={this.addCard} />
+        </section>
       </div>
     )
   }
