@@ -22,6 +22,14 @@ class Card extends Component {
         <section className="card__content-emoji">
         {icon}
         </section>
+        <button
+          onClick={() => this.props.deleteCardCallback(this.props.id)}
+          type="button"
+          className="close pet-card--close-btn"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
         </div>
       </div>
     )

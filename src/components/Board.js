@@ -78,6 +78,23 @@ class Board extends Component {
       });
   }
 
+  removeCard = (cardId) => {
+    let deleteIndex = -1;
+    const cards = [...this.state.cards];
+
+    cards.forEach((card, index) => {
+      if (cardId === card.id) {
+        deleteIndex = index;
+      }
+    });
+
+    cards.splice(deleteIndex, 1); //remove one element at deleteIndex
+
+    this.setState({
+      cards: cards,
+    });
+  }
+
   render() {
     console.log(this.state.cards)
 
@@ -89,7 +106,8 @@ class Board extends Component {
         emoji = card.emoji
       }
       return (
-        <Card text = {card.text} emoji= {emoji}/>
+        <Card text = {card.text} emoji= {emoji} deleteCardCallback={this.removeCard} id={card.id}
+/>
       )
     });
     return (
