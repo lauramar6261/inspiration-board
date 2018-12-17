@@ -79,20 +79,31 @@ class Board extends Component {
   }
 
   removeCard = (cardId) => {
-    let deleteIndex = -1;
-    const cards = [...this.state.cards];
+    //https://inspiration-board.herokuapp.com/cards/:card_id
+    let URL_delete = "https://inspiration-board.herokuapp.com/cards/" + cardId
+    axios.delete(URL_delete)
+       .then((response) => { //if it finishes successfully, this executes
+         let deleteIndex = -1;
+         const cards = [...this.state.cards];
 
-    cards.forEach((card, index) => {
-      if (cardId === card.id) {
-        deleteIndex = index;
-      }
-    });
+         cards.forEach((card, index) => {
+           if (cardId === card.id) {
+             deleteIndex = index;
+           }
+         });
 
-    cards.splice(deleteIndex, 1); //remove one element at deleteIndex
+         cards.splice(deleteIndex, 1); //remove one element at deleteIndex
 
-    this.setState({
-      cards: cards,
-    });
+         this.setState({
+           cards: cards,
+         });
+       })
+       .catch((error) => {
+         this.setState({
+           errorMessage: `Failure ${error.message}`,
+         })
+       });
+
   }
 
   render() {

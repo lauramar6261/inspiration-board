@@ -11,7 +11,6 @@ class Card extends Component {
     if (icon !== undefined) {
       icon = emoji.getUnicode(icon);
     }
-    console.log(icon)
     return (
       <div className="card">
         <div className="card__content">
@@ -37,7 +36,10 @@ class Card extends Component {
 }
 
 Card.propTypes = {
-
+  id: PropTypes.number.isRequired,
+  emoji: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  deleteCardCallback: PropTypes.func,
 };
 
 export default Card;
